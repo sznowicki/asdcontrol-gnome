@@ -3,7 +3,7 @@ use gtk4::prelude::*;
 use gtk4::{MessageDialog, MessageType, ButtonsType};
 
 pub fn check_asdcontrol_command() {
-    let asd_control = "aasdcontrol";
+    let asd_control = "asdcontrol";
 
     if Command::new(asd_control).output().is_err() {
         let app = gtk4::Application::builder()
