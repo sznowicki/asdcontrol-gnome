@@ -19,9 +19,9 @@ fn main() {
             .application(app)
             .title("ASDControl GNOME")
             .default_width(600)
-            .default_height(300)
+            .default_height(50)
             .build();
-        
+
         let device = check_envs::check_get_device().clone();
         let bg_value = asdcontrol_bind::get_bg_value(device.as_deref().unwrap_or(""));
 
