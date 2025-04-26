@@ -15,6 +15,7 @@ pub fn check_asdcontrol_command() {
                 .message_type(MessageType::Error)
                 .buttons(ButtonsType::Ok)
                 .text("No asdcontrol detected. Please install it first.")
+                .modal(true)         // Make the dialog modal
                 .build();
             dialog.connect_response(|dialog, _| dialog.close());
             dialog.show();

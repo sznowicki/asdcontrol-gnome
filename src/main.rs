@@ -10,7 +10,6 @@ fn main() {
         .application_id("com.sznowicki.asdcontrol-gnome")
         .build();
 
-    check_asdcontrol_command();
 
     app.connect_activate(|app| {
         let window = ApplicationWindow::builder()
@@ -21,7 +20,9 @@ fn main() {
             .build();
         window.show();
     });
-
+    check_asdcontrol_command();
     app.run();
+
+
 }
 
