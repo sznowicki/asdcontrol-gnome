@@ -1,0 +1,3 @@
+_version: 2
+error.noasdcontrol:
+  en: "No asdcontrol found. Please install it first."
