@@ -1,5 +1,7 @@
 # asdcontrol - GNOME GUI
 
+![screenshot of the slider](./docs/screenshot.png)
+
 This is a small GUI app that talks to [Apple Display Brightness Control](https://github.com/nikosdion/asdcontrol) application.
 
 The asdscontrol app is a simple command that uses USB protocol to communicate with an Apple Studio Display on Linux.
