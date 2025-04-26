@@ -1,3 +1,5 @@
 _version: 2
 error.noasdcontrol:
   en: "No asdcontrol found. Please install it first."
+error.nodevice:
+  en: "No ASD device found. Is it really connected?"
