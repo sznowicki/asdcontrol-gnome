@@ -1,0 +1,9 @@
+[package]
+name = "asdcontrol-gnome"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+glib = "0.20.9"
+gtk4 = "0.9.6"
+rust-i18n = "3.1.4"
