@@ -6,7 +6,10 @@ project('asdcontrol-gnome', 'vala',
 gnome = import('gnome')
 
 executable('asdcontrol-gnome',
-  ['src/main.vala'],
+  [
+    'src/main.vala',
+    'src/checks.vala',
+  ],
   dependencies: [
     dependency('gtk4')
   ],
