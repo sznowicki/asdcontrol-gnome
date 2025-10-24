@@ -21,8 +21,8 @@ checksum = "69f7f8c3906b62b754cd5326047894316021dcfe5a194c8ea52bdd94934a3457"
 name = "asdcontrol-gnome"
 version = "0.1.0"
 dependencies = [
- "glib",
  "gtk4",
+ "libc",
  "rust-i18n",
 ]
 
