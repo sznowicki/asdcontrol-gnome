@@ -96,7 +96,6 @@ pub struct HidDevice {
 impl HidDevice {
     /// Open a HID device and verify it's a supported Apple display
     pub fn open<P: AsRef<Path>>(path: P) -> Result<Self, String> {
-        eprintln!("[DEBUG] Trying to open: {:?}", path.as_ref());
 
         let file = OpenOptions::new()
             .read(true)
@@ -123,11 +122,6 @@ impl HidDevice {
         let vendor = devinfo.vendor;
         let product = devinfo.product;
 
-        eprintln!(
-            "[DEBUG] Device info - vendor: 0x{:04x}, product: 0x{:04x}",
-            vendor, product
-        );
-
         if vendor != APPLE_VENDOR {
             return Err(format!("Not an Apple device (vendor: 0x{:04x})", vendor));
         }
@@ -140,7 +134,6 @@ impl HidDevice {
         }
 
         // Check if it's a USB monitor (application 0x80)
-        eprintln!("[DEBUG] Checking {} applications", devinfo.num_applications);
         let mut is_monitor = false;
         for appl_num in 0..devinfo.num_applications {
             // HIDIOCAPPLICATION takes the application number as a value and returns the application ID
@@ -148,12 +141,6 @@ impl HidDevice {
                 unsafe { libc::ioctl(fd, HIDIOCAPPLICATION as libc::c_ulong, appl_num) };
 
             if application >= 0 {
-                eprintln!(
-                    "[DEBUG] Application {}: 0x{:08x}, page: 0x{:02x}",
-                    appl_num,
-                    application,
-                    (application >> 16) & 0xFF
-                );
                 if ((application >> 16) & 0xFF) == 0x80 {
                     is_monitor = true;
                     eprintln!("[DEBUG] Found USB Monitor application!");
@@ -197,17 +184,12 @@ impl HidDevice {
         };
 
         unsafe {
-            eprintln!("[DEBUG] Calling HIDIOCGUSAGE to read brightness...");
             let ret = libc::ioctl(fd, HIDIOCGUSAGE as libc::c_ulong, &mut usage_ref);
             if ret < 0 {
                 let err = std::io::Error::last_os_error();
                 eprintln!("[DEBUG] HIDIOCGUSAGE failed: {} (ret={})", err, ret);
                 return Err(format!("Failed to get usage: {}", err));
             }
-            eprintln!(
-                "[DEBUG] HIDIOCGUSAGE succeeded, brightness value: {}",
-                usage_ref.value
-            );
         }
 
         Ok(usage_ref.value)
