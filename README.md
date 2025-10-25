@@ -2,20 +2,20 @@
 
 ![screenshot of the slider](./docs/screenshot.png)
 
-This is a small GUI app that talks to [Apple Display Brightness Control](https://github.com/nikosdion/asdcontrol) application.
+This is a small GUI app that directly controls the brightness of Apple Studio Displays on Linux using the USB HID protocol.
 
-The asdscontrol app is a simple command that uses USB protocol to communicate with an Apple Studio Display on Linux.
-
-This is very handy, unfortunately, it doesn't offer a GUI, which was annoying enough for me that I decided to learn some
-GTK development and write one myself.
+Inspired by [Apple Display Brightness Control](https://github.com/nikosdion/asdcontrol), this app provides a native GTK interface for controlling your display brightness.
 
 ## Features
 
-On app start it checks if asdcontrol is installed, then tries to detect the display address by trying out all dev/|usb/hiddev devices with asdcontrol.
+- **Multi-display support**: Automatically detects all connected Apple Studio Displays
+- **Direct USB HID communication**: No external dependencies - talks directly to the displays via Linux hiddev
+- **Simple GTK interface**: Clean, minimal sliders for brightness control
+- **Per-display control**: Each detected display gets its own slider
 
-If any of those fails, you'd see a modal dialog that it failed. No more support, feel free to debug it yourself.
+On app start, it scans `/dev/hiddev*` and `/dev/usb/hiddev*` devices to find all compatible Apple displays (Studio Display 27" and Pro XDR Display 32").
 
-If it does work, it offers a simple GTK slider where you can control your brightness.
+If no displays are found, a message is shown. Otherwise, you'll see a brightness slider for each detected display.
 
 ## Build
 
@@ -28,3 +28,27 @@ To build it, ensure you have rust development stuff on your machine, then build 
 ## Contribute
 
 If you want to improve it, feel free to propose a PR.
+
+## udev rules
+
+(Exact rule location may vary by distro)
+
+**For Apple Studio Display (2022, 27")**
+
+Create `/etc/udev/rules.d/50-apple-studio.rules`:
+
+```bash
+sudo tee /etc/udev/rules.d/50-apple-studio.rules <<EOF
+KERNEL=="hiddev*", ATTRS{idVendor}=="05ac", ATTRS{idProduct}=="1114", GROUP="users", OWNER="root", MODE="0660"
+EOF
+```
+
+**For Apple Pro XDR Display (2019, 32")**
+
+Create `/etc/udev/rules.d/50-apple-xdr.rules`:
+
+```bash
+sudo tee /etc/udev/rules.d/50-apple-xdr.rules <<EOF
+KERNEL=="hiddev*", ATTRS{idVendor}=="05ac", ATTRS{idProduct}=="9243", GROUP="users", OWNER="root", MODE="0660"
+EOF
+```
