@@ -1,0 +1,14 @@
+{
+  "name": "asdcontrol-gnome",
+  "scripts": {
+    "release": "semantic-release --no-ci"
+  },
+  "devDependencies": {
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/commit-analyzer": "^13.0.1",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/release-notes-generator": "^14.1.0",
+    "semantic-release": "^25.0.1",
+    "semantic-release-cargo": "^2.4.1"
+  }
+}
