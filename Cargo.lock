@@ -19,7 +19,7 @@ checksum = "69f7f8c3906b62b754cd5326047894316021dcfe5a194c8ea52bdd94934a3457"
 
 [[package]]
 name = "asdcontrol-gnome"
-version = "1.0.0-beta.8"
+version = "1.0.0"
 dependencies = [
  "gtk4",
  "libc",
