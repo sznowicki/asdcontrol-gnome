@@ -4,10 +4,24 @@ mod hiddev;
 
 use gtk4::prelude::*;
 use gtk4::{Application, ApplicationWindow, Label, Orientation, Scale};
+
 #[macro_use]
 extern crate rust_i18n;
 
 i18n!("locales", fallback = "en");
+
+const DEFAULT_MARGIN: i32 = 12;
+
+fn make_label(text: &str) -> Label {
+    let label = Label::new(Some(text));
+    label.set_xalign(0.0); // Left align
+    label.set_margin_start(DEFAULT_MARGIN);
+    label.set_margin_end(DEFAULT_MARGIN);
+    label.set_margin_top(DEFAULT_MARGIN);
+    label.set_margin_bottom(DEFAULT_MARGIN);
+
+    label
+}
 
 fn main() {
     let app = Application::builder()
@@ -26,12 +40,13 @@ fn main() {
 
         let container = gtk4::Box::builder()
             .orientation(Orientation::Vertical)
-            .spacing(10)
+            .spacing(0)
             .build();
+
 
         if devices.is_empty() {
             // No devices found - show error message
-            let label = Label::new(Some("No Apple Studio Displays detected"));
+            let label = make_label("No Apple Studio Displays detected. Restart the application after connecting the display.");
             container.append(&label);
         } else {
             // Create a slider for each detected device
@@ -40,8 +55,8 @@ fn main() {
                 let bg_value = asdcontrol_bind::get_bg_value(&device_path);
 
                 // Create label showing device path
-                let device_label = Label::new(Some(&format!("Device: {}", device_path)));
-                device_label.set_xalign(0.0); // Left align
+                let device_label = make_label(&format!("Device: {}", device_path));
+                device_label.set_margin_bottom(0);
 
                 // Create slider for brightness control
                 let slider = Scale::builder()
@@ -64,7 +79,10 @@ fn main() {
                     asdcontrol_bind::set_bg_value(&device_clone, value);
                     println!("Device {} brightness: {}", device_clone, value);
                 });
-
+                slider.set_margin_top(0); // Remove top spacing
+                slider.set_margin_bottom(10); // Add bottom spacing
+                slider.set_margin_start(0); // Add left spacing
+                slider.set_margin_end(0); // Add right spacing
                 // Add label and slider to container
                 container.append(&device_label);
                 container.append(&slider);

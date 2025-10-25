@@ -23,6 +23,7 @@ version = "0.1.0"
 dependencies = [
  "gtk4",
  "libc",
+ "log",
  "rust-i18n",
 ]
 
