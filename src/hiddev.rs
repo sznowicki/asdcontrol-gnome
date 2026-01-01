@@ -11,9 +11,9 @@ const BRIGHTNESS_CONTROL: u32 = 1;
 const USAGE_CODE: u32 = 0x820001;
 
 // Supported devices
-const APPLE_VENDOR: u16 = 0x05ac;
-const STUDIO_DISPLAY_27: u16 = 0x1114;
-const PRO_XDR_DISPLAY_32: u16 = 0x9243;
+const APPLE_VENDOR: i16 = 0x05ac;
+const STUDIO_DISPLAY_27: i16 = 0x1114;
+const PRO_XDR_DISPLAY_32: i16 = -0x6DBD;
 
 // Brightness limits for Apple displays
 const BRIGHTNESS_MIN: i32 = 400;
@@ -26,9 +26,9 @@ struct HiddevDevinfo {
     busnum: u32,
     devnum: u32,
     ifnum: u32,
-    vendor: u16,
-    product: u16,
-    version: u16,
+    vendor: i16,
+    product: i16,
+    version: i16,
     num_applications: u32,
 }
 
