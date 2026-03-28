@@ -1,5 +1,8 @@
 # asdcontrol - GNOME GUI
 
+***WARNING***
+Repository moved to [codeberg](https://codeberg.org/sznowicki/asdcontrol-gnome)
+
 ![screenshot of the slider](./docs/screenshot.png)
 
 This is a small GUI app that directly controls the brightness of Apple Studio Displays on Linux using the USB HID protocol.
